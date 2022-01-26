@@ -4,12 +4,13 @@ import { useForm } from "react-hook-form";
 
 function App() {
   const [socket, setSocket] = useState(null);
-  // console.log(socket)
+  const [chat, setChat] = useState([]);
+  console.log("CHAT", chat);
 
   const socketOn = () => {
     if (socket) {
       socket.on("message", (message) => {
-        console.log(message);
+        setChat([...chat, message]);
       });
     }
   };
@@ -28,20 +29,32 @@ function App() {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log('DATA',data);
+    console.log("DATA", data);
 
     //emit message to server
     socket.emit("chatMessage", data.message);
+    reset();
   };
-
 
   return (
     <div className="App">
       CHAT ROOM APP
+      <div>
+        <p>CHAT LOG</p>
+        {chat.length > 0 &&
+          chat.map((el, i) => (
+            <div key={i}>
+              <p>{el.username}</p>
+              <p>{el.text}</p>
+              <p>{el.time}</p>
+            </div>
+          ))}
+      </div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input {...register("message")} />
