@@ -1,20 +1,20 @@
-const express = require('express');
+const express = require("express");
+const http = require("http");
+const socketio = require("socket.io");
+
 const app = express();
-const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+const io = socketio(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
-io.on('connection', (socket) => {
-  socket.on('message', ({name, message}) => {
-      io.emit('message', {name, message})
-  })
+io.on("connection", (socket) => {
+  console.log("new web socket connection..");
 });
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
-});
+const PORT = 3001 || process.env.PORT;
+
+server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
