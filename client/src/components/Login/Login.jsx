@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [serverResponse, setServerResponse] = useState();
@@ -32,7 +30,7 @@ export const Login = () => {
       localStorage.setItem("userId", id);
 
       reset();
-      navigate("/home");
+      navigate("/");
     } catch (e) {
       if (axios.isAxiosError(e)) {
         console.log("SERVER RESPONSE", e.response?.data);
