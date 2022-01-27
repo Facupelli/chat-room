@@ -8,6 +8,8 @@ const loginUser = async (req, res, next) => {
 
     if (!user) return res.status(400).json({ error: "Email is incorrect" });
 
+    console.log('USER',user.dataValues.id);
+
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
@@ -21,15 +23,15 @@ const loginUser = async (req, res, next) => {
     const token = jwt.sign(
       // payload data
       {
-        name: user.name,
-        id: user._id,
+        name: user.dataValues.name,
+        id: user.dataValues.id,
       },
       process.env.SECRET_KEY
     );
 
     res.header("auth-token", token).json({
       token,
-      id: user._id,
+      id: user.dataValues.id,
     });
   } catch (e) {
     next(e);

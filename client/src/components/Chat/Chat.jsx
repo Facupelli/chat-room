@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useForm } from "react-hook-form";
 import s from "./Chat.module.css";
+import { Nav } from "../Nav/Nav";
 
 export const Chat = () => {
   const [socket, setSocket] = useState(null);
@@ -45,24 +46,27 @@ export const Chat = () => {
 
   // -------------------- SCROLL TO BOTTOM --------------------------------
   return (
-    <div className={s.container}>
-      <div className={s.chatlog}>
-        <p>CHAT LOG</p>
-        {chat.length > 0 &&
-          chat.map((el, i) => (
-            <div key={i} className={s.message}>
-              <p className={s.username}>{el.username}</p>
-              <p className={s.text}>{el.text}</p>
-              <p className={s.time}>{el.time}</p>
-            </div>
-          ))}
+    <>
+      <Nav />
+      <div className={s.container}>
+        <div className={s.chatlog}>
+          <p>CHAT LOG</p>
+          {chat.length > 0 &&
+            chat.map((el, i) => (
+              <div key={i} className={s.message}>
+                <p className={s.username}>{el.username}</p>
+                <p className={s.text}>{el.text}</p>
+                <p className={s.time}>{el.time}</p>
+              </div>
+            ))}
+        </div>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("message")} />
+            <input type="submit" />
+          </form>
+        </div>
       </div>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("message")} />
-          <input type="submit" />
-        </form>
-      </div>
-    </div>
+    </>
   );
 };

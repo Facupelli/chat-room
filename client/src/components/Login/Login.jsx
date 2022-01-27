@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import {useDispatch} from 'react-redux'
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setCookie } from "../../redux/actions/actions";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [serverResponse, setServerResponse] = useState();
 
@@ -28,7 +31,7 @@ export const Login = () => {
       const { token, id } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", id);
-
+      dispatch(setCookie(id))
       reset();
       navigate("/");
     } catch (e) {

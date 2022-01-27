@@ -1,0 +1,27 @@
+.div {
+  background-color: #78376d;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding: 1rem;
+  width: 100%;
+  max-width: 1000px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+
+  color: white;
+
+}
+
+.chatroom{
+    font-size: x-large;
+}
+
+.username {
+    font-size: larger;
+}
