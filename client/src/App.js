@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData, setCookie } from "./redux/actions/actions";
+import { getUser, setCookie } from "./redux/actions/actions";
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (cookie) {
-      dispatch(getUserData(userId));
+      dispatch(getUser(userId));
     }
   }, [dispatch, cookie]);
 

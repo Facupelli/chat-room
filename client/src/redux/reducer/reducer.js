@@ -9,13 +9,15 @@ const rootReducer = (state = initialState, action) => {
   const { payload } = action;
 
   switch (action.type) {
-    //usar importacion type que incluye las constantes para facilitarte,agregar constantes si es necesario en variables.js ""
-
-    case type.GET_SERVICES:
+    case type.SET_COOKIE:
       return {
         ...state,
-        services: payload,
-        endPage: payload && payload.length === 0 ? true : false,
+        cookie: payload,
+      };
+    case type.GET_USER_DATA:
+      return {
+        ...state,
+        user: payload,
       };
     default:
       return state;

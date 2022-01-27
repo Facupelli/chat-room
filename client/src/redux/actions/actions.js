@@ -1,4 +1,5 @@
 import { type } from "./variables";
+import axios from 'axios'
 
 export const setCookie = (cookie) => {
     return {
@@ -13,3 +14,17 @@ export const getUserData = (cookie) => {
     payload: cookie
   }
 } 
+
+export const getUser =
+  (id) => async (dispatch) => {
+    try {
+      const res = await axios.get(`/user?id=${id}`);
+
+      return dispatch({
+        type: type.GET_USER_DATA,
+        payload: res.data,
+      });
+    } catch (e) {
+      console.log(e)
+    }
+  };
