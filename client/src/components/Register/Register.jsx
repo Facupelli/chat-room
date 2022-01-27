@@ -21,6 +21,14 @@ export const Register = () => {
 
   const onSubmit = async (data) => {
     try {
+      const user = {
+        userImg: "",
+        name: data.name,
+        lastname: data.lastname,
+        username: data.username,
+        password: data.password,
+        email: data.email,
+      };
       console.log(data);
       const response = await axios.post("/register", data);
       console.log("RESPONSE:", response);
