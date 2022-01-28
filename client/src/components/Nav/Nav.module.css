@@ -18,8 +18,14 @@
 
 }
 
-.chatroom{
-    font-size: x-large;
+.chatroom {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.title {
+  font-size: x-large;
 }
 
 .username {
