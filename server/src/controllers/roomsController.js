@@ -1,4 +1,4 @@
-const { Room } = require("../db");
+const { Room, User } = require("../db");
 
 const postRoom = async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ const postRoom = async (req, res, next) => {
 const getRooms = async (req, res, next) => {
   try {
 
-    const rooms = await Room.findAll();
+    const rooms = await Room.findAll({include: {model: User, attributes: ['username']}});
 
     res.json(rooms);
   } catch (e) {

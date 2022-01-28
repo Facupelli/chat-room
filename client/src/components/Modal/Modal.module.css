@@ -34,22 +34,18 @@
   margin-bottom: 1.5em;
 }
 
-.form {
-  margin-bottom: 1.5em;
-}
-
-.form label {
+.formContainer label {
   margin-right: 0.5em;
   margin-bottom: 0.5em;
 }
 
-.form input, .form textarea {
+.formContainer input, .formContainer textarea {
   padding: 10px;
   border: 1px solid #785c73;
   border-radius: 0.3em;
 }
 
-    .form input:focus, .form input:active{
+    .formContainer input:focus, .formContainer input:active{
         border: 1px solid #C45CB3;
     }
 
@@ -65,6 +61,7 @@
 }
 
 .button {
+  margin-top: 1.5em;
   border: none;
   color: white;
   border-radius: 0.5em;
