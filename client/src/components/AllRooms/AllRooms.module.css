@@ -8,6 +8,7 @@
 
 .block{
     background-color: #F9BFEF;
+    cursor: pointer;
     border-radius: 0.5rem;
     padding: 0.5em;
     margin-bottom: 0.5em;

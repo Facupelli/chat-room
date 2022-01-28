@@ -31,7 +31,12 @@ export const Home = () => {
       {showRooms && (
         <div className={s.container}>
           <div className={s.allRooms}>
-            <AllRooms />
+            <AllRooms
+              setShowChat={setShowChat}
+              showChat={showChat}
+              setShowRooms={setShowRooms}
+              showRooms={showRooms}
+            />
           </div>
           <div></div>
         </div>
