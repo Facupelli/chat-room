@@ -1,30 +1,44 @@
 import { type } from "./variables";
-import axios from 'axios'
+import axios from "axios";
 
 export const setCookie = (cookie) => {
-    return {
-      type: type.SET_COOKIE,
-      payload: cookie,
-    };
+  return {
+    type: type.SET_COOKIE,
+    payload: cookie,
   };
+};
 
 export const getUserData = (cookie) => {
-  return{ 
+  return {
     type: type.GET_USER_DATA,
-    payload: cookie
-  }
-} 
-
-export const getUser =
-  (id) => async (dispatch) => {
-    try {
-      const res = await axios.get(`/user?id=${id}`);
-
-      return dispatch({
-        type: type.GET_USER_DATA,
-        payload: res.data,
-      });
-    } catch (e) {
-      console.log(e)
-    }
+    payload: cookie,
   };
+};
+
+export const getUser = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/user?id=${id}`);
+
+    return dispatch({
+      type: type.GET_USER_DATA,
+      payload: res.data,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// ROOOMS--------------------------------------------
+
+export const getRooms = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/room');
+
+    return dispatch({
+      type: type.GET_ALL_ROOMS,
+      payload: res.data,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

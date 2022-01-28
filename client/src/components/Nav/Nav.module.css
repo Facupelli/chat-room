@@ -28,6 +28,14 @@
   font-size: x-large;
 }
 
+.joinRoom, .joinRoomActive{
+  cursor: pointer;
+}
+
+.joinRoomActive {
+  border-bottom: 2px solid  #F773E1;
+}
+
 .username {
     font-size: larger;
 }

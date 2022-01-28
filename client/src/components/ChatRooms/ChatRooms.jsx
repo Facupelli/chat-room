@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './Rooms.module.css'
+import s from './ChatRooms.module.css'
 
-export const Rooms = () => {
+export const ChatRooms = () => {
 
     return(
         <div className={s.container}>

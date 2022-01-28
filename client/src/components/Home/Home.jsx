@@ -1,21 +1,41 @@
 import React from "react";
+import { useState } from "react";
 import { Chat } from "../Chat/Chat";
 import { Nav } from "../Nav/Nav";
-import { Rooms } from "../Rooms/Rooms";
-import s from './Home.module.css'
+import { ChatRooms } from "../ChatRooms/ChatRooms";
+import s from "./Home.module.css";
+import { AllRooms } from "../AllRooms/AllRooms";
 
 export const Home = () => {
+  const [showChat, setShowChat] = useState(true);
+  const [showRooms, setShowRooms] = useState(false);
+
   return (
     <div>
-      <Nav />
-      <div className={s.container}>
-        <div className={s.rooms}>
-          <Rooms />
+      <Nav
+        setShowChat={setShowChat}
+        showChat={showChat}
+        setShowRooms={setShowRooms}
+        showRooms={showRooms}
+      />
+      {showChat && (
+        <div className={s.container}>
+          <div className={s.rooms}>
+            <ChatRooms />
+          </div>
+          <div className={s.chat}>
+            <Chat />
+          </div>
         </div>
-        <div className={s.chat}>
-          <Chat />
+      )}
+      {showRooms && (
+        <div className={s.container}>
+          <div className={s.allRooms}>
+            <AllRooms />
+          </div>
+          <div></div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import { type } from "../actions/variables";
 
 const initialState = {
-  user: [],
   cookie: "",
+  user: [],
+  rooms: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,6 +20,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: payload,
       };
+    case type.GET_ALL_ROOMS:
+      return {
+        ...state,
+        rooms: payload,
+      };
+
     default:
       return state;
   }
