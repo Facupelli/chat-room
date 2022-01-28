@@ -3,4 +3,12 @@
     height: 25rem;
     margin-top: 2rem;
     border-radius: 0.5rem;
+    padding: 0.5em;
+}
+
+.block{
+    background-color: #F9BFEF;
+    border-radius: 0.5rem;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
 }

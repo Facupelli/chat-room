@@ -4,6 +4,7 @@ const postRoom = async (req, res, next) => {
   try {
     const room = {
       name: req.body.name,
+      description:req.body.description,
       userId: req.body.userId,
     };
 

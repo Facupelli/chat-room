@@ -40,9 +40,10 @@
 
 .form label {
   margin-right: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-.form input {
+.form input, .form textarea {
   padding: 10px;
   border: 1px solid #785c73;
   border-radius: 0.3em;
@@ -51,6 +52,12 @@
     .form input:focus, .form input:active{
         border: 1px solid #C45CB3;
     }
+
+.description{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
 
 .buttonContainer {
   display: flex;
@@ -64,3 +71,4 @@
   background-color: #785c73;
   padding: 10px 20px 10px 20px;
 }
+

@@ -26,7 +26,7 @@ export const Nav = ({ setShowChat, setShowRooms, showRooms, showChat }) => {
             <div className={showRooms ? s.joinRoomActive : s.joinRoom}>
               <span onClick={handleJoinRoom}>join room</span>
             </div>
-            <span onClick={handleAddRoom}>+ room</span>
+            <span className={s.addRoom} onClick={handleAddRoom}>+ room</span>
           </div>
           <div className={s.username}>
             <p>{user.username}</p>

@@ -19,15 +19,19 @@ export const Modal = ({ setModal }) => {
           </div>
           <div className={s.form}>
             <form>
-              <label>Room Name</label>
-              <input type="text" />
+              <div>
+                <label>Room Name</label>
+                <input type="text" />
+              </div>
+
+              <div className={s.description}>
+                <label>Room Description</label>
+                <textarea type="text" />
+              </div>
             </form>
           </div>
           <div className={s.buttonContainer}>
-            <button
-              className={s.button}
-              onClick={handleClick}
-            >
+            <button className={s.button} onClick={handleClick}>
               OK
             </button>
           </div>

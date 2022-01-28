@@ -36,6 +36,10 @@
   border-bottom: 2px solid  #F773E1;
 }
 
+.addRoom{
+  cursor: pointer;
+}
+
 .username {
     font-size: larger;
 }
