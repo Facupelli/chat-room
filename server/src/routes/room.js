@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {
-    postRoom
+    postRoom,
+    getRooms
 } = require("../controllers/roomsController");
 
 router.post("/", postRoom);
+router.get('/', getRooms)
 
 module.exports = router;

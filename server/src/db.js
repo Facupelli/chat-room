@@ -42,6 +42,10 @@ const { User, Room } = sequelize.models;
 User.hasMany(Room, { as: "roomsOwn" });
 Room.belongsTo(User);
 
+User.belongsToMany(Room, {as: "roomsJoined", through: "rooms_users_joined"});
+Room.belongsToMany(User, {as: "roomsJoined", through: "rooms_users_joined"})
+
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,
