@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import s from "./Nav.module.css";
 
 export const Nav = () => {
-  
+  const user = useSelector(state => state.user)
 
   return (
     <div className={s.div}>
@@ -11,7 +12,7 @@ export const Nav = () => {
           <p>CHAT ROOM</p>
         </div>
         <div className={s.username}>
-          <p>USER</p>
+          <p>{user.username}</p>
         </div>
       </div>
     </div>

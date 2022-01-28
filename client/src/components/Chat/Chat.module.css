@@ -1,11 +1,11 @@
 .container{
-    margin: 2rem;
+    margin-top: 2rem;
 }
 
 .chatlog {
-    background-color: #F771E0;
+    background-color: #f773e1;
     border-radius: 0.5rem;
-    width: 60%;
+    /* width: 60%; */
     height: 25rem;
     padding: 0rem 2rem 0rem 2rem;
 

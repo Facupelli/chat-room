@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Chat } from "./components/Chat/Chat";
 import s from './App.css'
 import { Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, setCookie } from "./redux/actions/actions";
+import { Home } from "./components/Home/Home";
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
   return (
     <div className={s.app}>
       <Routes>
-        <Route path="/" element={<Chat />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

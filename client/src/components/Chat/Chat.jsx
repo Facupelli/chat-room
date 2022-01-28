@@ -46,11 +46,8 @@ export const Chat = () => {
 
   // -------------------- SCROLL TO BOTTOM --------------------------------
   return (
-    <>
-      <Nav />
       <div className={s.container}>
         <div className={s.chatlog}>
-          <p>CHAT LOG</p>
           {chat.length > 0 &&
             chat.map((el, i) => (
               <div key={i} className={s.message}>
@@ -67,6 +64,5 @@ export const Chat = () => {
           </form>
         </div>
       </div>
-    </>
   );
 };
