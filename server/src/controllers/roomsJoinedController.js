@@ -6,7 +6,7 @@ const postJoinRoom = async (req, res, next) => {
 
     const room = await Room.findByPk(Number(info.roomId));
 
-    console.log('ROOM', room)
+    console.log("ROOM", room);
 
     if (room) {
       const [join, created] = await rooms_users_joined.findOrCreate({
@@ -24,10 +24,26 @@ const postJoinRoom = async (req, res, next) => {
     } else {
       res.status(404).json({ message: "Service not found" });
     }
-  
   } catch (e) {
     next(e);
   }
 };
 
-module.exports = { postJoinRoom };
+const getRoomsJoinedByUser = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+
+    const roomsJoined = await rooms_users_joined.findAll({
+      where: {
+        userId: userId,
+      },
+    });
+    roomsJoined
+      ? res.status(200).json(roomsJoined)
+      : res.status(500).json({ message: "cannot get" });
+  } catch (e) {
+    next(e);
+  }
+};
+
+module.exports = { postJoinRoom, getRoomsJoinedByUser };
