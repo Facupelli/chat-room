@@ -4,12 +4,18 @@ import { Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { getRooms, getUser, setCookie } from "./redux/actions/actions";
+import { getRooms, getUser, setCookie, setSocket } from "./redux/actions/actions";
 import { Home } from "./components/Home/Home";
 
 function App() {
   const dispatch = useDispatch();
   const cookie = useSelector((state) => state.cookie);
+
+  //SET SOCKET-------------------------
+
+  // useEffect(() => {
+  //   dispatch(setSocket())
+  // },[])
 
 
   // SET COOKIE-----------------------------

@@ -1,6 +1,7 @@
 import { type } from "../actions/variables";
 
 const initialState = {
+  socket: {},
   cookie: "",
   user: [],
   rooms: [],
@@ -10,6 +11,11 @@ const rootReducer = (state = initialState, action) => {
   const { payload } = action;
 
   switch (action.type) {
+    case type.SET_SOCKET:
+      return {
+        ...state,
+        socket: payload,
+      };
     case type.SET_COOKIE:
       return {
         ...state,

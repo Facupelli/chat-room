@@ -1,5 +1,7 @@
-import { useDispatch } from "react-redux";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Socket } from "socket.io-client";
 import s from "./JoinModal.module.css";
 
 export const JoinModal = ({
@@ -8,17 +10,30 @@ export const JoinModal = ({
   showChat,
   setShowRooms,
   showRooms,
+  roomIndex
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const socket = useSelector(state => state.socket)
+
+  console.log(roomIndex)
 
   const handleNoClick = () => {
     setModal(false);
   };
 
-  const handleYesClick = () => {
+  const handleYesClick = async() => {
+    const postInfo = {
+      roomId: roomIndex.roomId,
+      userId: roomIndex.userId
+    }
+
+    const response = await axios.post("/roomsjoined", postInfo);
+
     setShowRooms(!showRooms);
     setShowChat(!showChat);
+    // await socket.emit('joinRoom', roomIndex)
   };
 
   return (
