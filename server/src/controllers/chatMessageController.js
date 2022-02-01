@@ -1,4 +1,4 @@
-const { Chat_message } = require("../db");
+const { Chat_message, Room } = require("../db");
 
 const postMessage = async (req, res, next) => {
   try {
@@ -27,8 +27,11 @@ const postMessage = async (req, res, next) => {
 
 const getMessagesByRoom = async(req, res, next) => {
     try{
-        const room = req.body.room
+        const {room, userId} = req.body
+        
+        const findRoom = await Room.findAll({where: {name: room, userId: userId}})
 
+        res.json(findRoom)
 
 
     }catch(e){
@@ -36,4 +39,4 @@ const getMessagesByRoom = async(req, res, next) => {
     }
 }
 
-module.exports = { postMessage };
+module.exports = { postMessage, getMessagesByRoom };

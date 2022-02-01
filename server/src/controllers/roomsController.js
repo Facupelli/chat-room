@@ -4,18 +4,20 @@ const postRoom = async (req, res, next) => {
   try {
     const room = {
       name: req.body.name,
-      description:req.body.description,
+      description: req.body.description,
       userId: req.body.userId,
     };
 
-    const roomNameExist = await Room.findOne({where: {userId: room.userId, name: room.name}});
-    
-    if(roomNameExist){
-      res.status(400).json({message: "room name already exists"})
-    }
+    const roomNameExist = await Room.findOne({
+      where: { userId: room.userId, name: room.name },
+    });
 
-    await Room.create(room);
-    res.json({ data: "created" });
+    if (roomNameExist) {
+      res.status(400).json({ message: "room name already exists" });
+    } else {
+      await Room.create(room);
+      res.json({ data: "created" });
+    }
   } catch (e) {
     next(e);
   }
@@ -23,8 +25,9 @@ const postRoom = async (req, res, next) => {
 
 const getRooms = async (req, res, next) => {
   try {
-
-    const rooms = await Room.findAll({include: {model: User, attributes: ['username']}});
+    const rooms = await Room.findAll({
+      include: { model: User, attributes: ["username"] },
+    });
 
     res.json(rooms);
   } catch (e) {
