@@ -6,8 +6,7 @@ import { ChatRooms } from "../ChatRooms/ChatRooms";
 import s from "./Home.module.css";
 import { AllRooms } from "../AllRooms/AllRooms";
 import { useEffect } from "react";
-import {io} from "socket.io-client";
-
+import { io } from "socket.io-client";
 
 export const Home = () => {
   const [showChat, setShowChat] = useState(true);
@@ -17,7 +16,7 @@ export const Home = () => {
   // const socket = useSelector(state => state.socket)
 
   // const socket = io();
-  console.log('SOCKET', socket)
+  console.log("SOCKET", socket);
 
   useEffect(() => {
     const newSocket = io(`http://${window.location.hostname}:3001`);
@@ -25,10 +24,15 @@ export const Home = () => {
     return () => newSocket.close();
   }, [setSocket]);
 
+  const [chat, setChat] = useState({
+    messages: [],
+  });
+  console.log("CHAT.MESSAGES", chat.messages);
+
   const [currentRoom, setCurrentRoom] = useState({
-    roomName:'',
-    roomId: '',
-  })
+    roomName: "",
+    roomId: "",
+  });
 
   return (
     <div>
@@ -41,10 +45,21 @@ export const Home = () => {
       {showChat && (
         <div className={s.container}>
           <div className={s.rooms}>
-            <ChatRooms socket={socket} setCurrentRoom={setCurrentRoom} currentRoom={currentRoom}/>
+            <ChatRooms
+              socket={socket}
+              setCurrentRoom={setCurrentRoom}
+              currentRoom={currentRoom}
+              setChat={setChat}
+              chat={chat}
+            />
           </div>
           <div className={s.chat}>
-            <Chat socket={socket} currentRoom={currentRoom} />
+            <Chat
+              socket={socket}
+              currentRoom={currentRoom}
+              chat={chat}
+              setChat={setChat}
+            />
           </div>
         </div>
       )}

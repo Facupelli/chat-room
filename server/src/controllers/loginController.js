@@ -8,8 +8,6 @@ const loginUser = async (req, res, next) => {
 
     if (!user) return res.status(400).json({ error: "Email is incorrect" });
 
-    console.log('USER',user.dataValues.id);
-
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password

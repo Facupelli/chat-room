@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Socket } from "socket.io-client";
 import s from "./JoinModal.module.css";
 
 export const JoinModal = ({
@@ -12,12 +9,6 @@ export const JoinModal = ({
   showRooms,
   roomIndex
 }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const socket = useSelector(state => state.socket)
-
-  console.log(roomIndex)
 
   const handleNoClick = () => {
     setModal(false);

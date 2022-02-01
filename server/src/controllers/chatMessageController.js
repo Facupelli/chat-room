@@ -1,5 +1,5 @@
 const { Chat_message, Room } = require("../db");
-const {getPagination} = require('../../utils/pagintaion')
+const { getPagination } = require("../../utils/pagintaion");
 
 const postMessage = async (req, res, next) => {
   try {
@@ -29,19 +29,15 @@ const getMessagesByRoom = async (req, res, next) => {
   try {
     const { page, size, roomName, roomId } = req.query;
 
-    console.log(roomId, roomName, req.query)
-
     const totalRows = await Chat_message.findAndCountAll({
       where: { roomName: roomName, roomId: roomId },
-    })
+    });
 
-    const {limit, offset} = getPagination(page, size, totalRows)
-
-    console.log('LIMIT OFFSET', limit, offset)
+    const { limit, offset } = getPagination(page, size, totalRows);
 
     const findRoom = await Chat_message.findAndCountAll({
       where: { roomName: roomName, roomId: roomId },
-    //   include: [{ model: Chat_message, as: "roomMessages" }],
+      //   include: [{ model: Chat_message, as: "roomMessages" }],
       limit,
       offset,
     });

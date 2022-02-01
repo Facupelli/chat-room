@@ -9,8 +9,6 @@ const registerUser = async (req, res, next) => {
       },
     });
 
-    console.log(isEmailExist)
-
     if (isEmailExist.length > 0) {
       return res.status(400).json({ error: "Email already registered" });
     }

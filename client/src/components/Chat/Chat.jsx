@@ -5,17 +5,12 @@ import { Nav } from "../Nav/Nav";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-export const Chat = ({ socket, currentRoom }) => {
+export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   const username = useSelector((state) => state.user.username);
   const userId = localStorage.getItem("userId");
 
   const [totalRows, setTotalRows] = useState("");
   const [loadPetitions, setLoadPetitions] = useState(1);
-
-  const [chat, setChat] = useState({
-    messages: [],
-  });
-  console.log("CHAT.MESSAGES", chat.messages);
 
   //LOAD CHAT MESSAGES ------------------------
 
@@ -48,7 +43,7 @@ export const Chat = ({ socket, currentRoom }) => {
 
   useEffect(() => {
     socketOn();
-  });
+  }, [socket]);
 
   // -------------------- FORM ----------------------------------
 
@@ -60,20 +55,24 @@ export const Chat = ({ socket, currentRoom }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("DATA", data);
-    const messageInfo = {
-      username,
-      text: data.message,
-      room: currentRoom.roomName,
-      userId,
-      roomId: currentRoom.roomId,
-    };
+    try {
+      console.log("DATA", data);
+      const messageInfo = {
+        username,
+        text: data.message,
+        room: currentRoom.roomName,
+        userId,
+        roomId: currentRoom.roomId,
+      };
 
-    await axios.post("/chatmessage", messageInfo);
+      const response = await axios.post("/chatmessage", messageInfo);
 
-    //emit message to server
-    socket.emit("chatMessage", data.message);
-    reset();
+      //emit message to server
+      socket.emit("chatMessage", data.message);
+      reset();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   //handleLoadMessages -----------------------------
@@ -102,10 +101,15 @@ export const Chat = ({ socket, currentRoom }) => {
         <span onClick={handleLoadMessages}>load more messages</span>
         {chat.messages.length > 0 &&
           chat.messages.map((el, i) => (
-            <div key={i} className={s.message}>
-              <p className={s.username}>{el.username}</p>
-              <p className={s.text}>{el.text}</p>
-              <p className={s.time}>{el.time}</p>
+            <div
+              key={i}
+              className={el.username === username ? s.mineMessage : s.message}
+            >
+              <div className={s.content}>
+                <p className={s.username}>{el.username}</p>
+                <p className={s.text}>{el.text}</p>
+                <p className={s.time}>{el.time}</p>
+              </div>
             </div>
           ))}
       </div>

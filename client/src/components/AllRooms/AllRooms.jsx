@@ -16,8 +16,6 @@ export const AllRooms = ({
 
   const userId = localStorage.getItem("userId");
 
-  console.log("rooms", rooms);
-
   const handleClick = (name, username, roomId) => {
     setModal(true);
     setRoomIndex({
