@@ -1,10 +1,11 @@
 const { Chat_message, Room } = require("../db");
+const {getPagination} = require('../../utils/pagintaion')
 
 const postMessage = async (req, res, next) => {
   try {
     const { username, text, room, userId, roomId } = req.body;
 
-    if (username && text && room && userId, roomId) {
+    if ((username && text && room && userId, roomId)) {
       const message = {
         username,
         text,
@@ -26,11 +27,16 @@ const postMessage = async (req, res, next) => {
 
 const getMessagesByRoom = async (req, res, next) => {
   try {
-    const { room, userId } = req.body;
+    const { room, roomId } = req.body;
+    const { page, size } = req.query;
 
-    const findRoom = await Room.findAll({
-      where: { name: room, userId: userId },
-      include: [{ model: Chat_message, as: "roomMessages" }],
+    const {limit, offset} = getPagination(page, size)
+
+    const findRoom = await Chat_message.findAndCountAll({
+      where: { roomName: room, roomId: roomId },
+    //   include: [{ model: Chat_message, as: "roomMessages" }],
+      limit,
+      offset,
     });
 
     res.json(findRoom);
