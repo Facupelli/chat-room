@@ -12,11 +12,11 @@ export const AllRooms = ({
 }) => {
   const rooms = useSelector((state) => state.rooms);
   const [modal, setModal] = useState(false);
-  const [roomIndex, setRoomIndex] = useState({})
+  const [roomIndex, setRoomIndex] = useState({});
 
-  const userId = localStorage.getItem('userId')
+  const userId = localStorage.getItem("userId");
 
-  console.log('rooms', rooms)
+  console.log("rooms", rooms);
 
   const handleClick = (name, username, roomId) => {
     setModal(true);
@@ -24,8 +24,8 @@ export const AllRooms = ({
       roomId,
       name,
       username,
-      userId
-    })
+      userId,
+    });
   };
 
   return (
@@ -33,7 +33,11 @@ export const AllRooms = ({
       <div className={s.container}>
         {rooms &&
           rooms.map((el, i) => (
-            <div key={i} className={s.block} onClick={() => handleClick(el.name, el.user.username, el.id)}>
+            <div
+              key={i}
+              className={s.block}
+              onClick={() => handleClick(el.name, el.user.username, el.id)}
+            >
               <div className={s.title}>
                 <p className={s.room_name}>{el.name}</p>
                 <p className={s.username}>{el.user.username}</p>

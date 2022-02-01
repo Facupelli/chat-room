@@ -5,10 +5,26 @@ import { Nav } from "../Nav/Nav";
 import { ChatRooms } from "../ChatRooms/ChatRooms";
 import s from "./Home.module.css";
 import { AllRooms } from "../AllRooms/AllRooms";
+import { useEffect } from "react";
+import {io} from "socket.io-client";
+
 
 export const Home = () => {
   const [showChat, setShowChat] = useState(true);
   const [showRooms, setShowRooms] = useState(false);
+
+  const [socket, setSocket] = useState(null);
+  // const socket = useSelector(state => state.socket)
+
+  // const socket = io();
+  console.log('SOCKET', socket)
+
+  useEffect(() => {
+    const newSocket = io(`http://${window.location.hostname}:3001`);
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
+
 
   return (
     <div>
@@ -21,10 +37,10 @@ export const Home = () => {
       {showChat && (
         <div className={s.container}>
           <div className={s.rooms}>
-            <ChatRooms />
+            <ChatRooms socket={socket} />
           </div>
           <div className={s.chat}>
-            <Chat />
+            <Chat socket={socket} />
           </div>
         </div>
       )}

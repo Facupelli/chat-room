@@ -1,10 +1,26 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import s from "./ChatRooms.module.css";
 
-export const ChatRooms = () => {
+export const ChatRooms = ({socket}) => {
   const rooms_joined = useSelector((state) => state.rooms_joined);
+  const username = useSelector(state => state.user.username )
+  const userId = localStorage.getItem('userId')
+
+
+  const handleClick = (roomName, username, roomId) => {
+    const roomInfo = {
+      roomId,
+      roomName,
+      username,
+      userId,
+    };
+
+    console.log(roomInfo)
+
+    socket.emit('joinRoom', roomInfo)
+  };
 
   return (
     <div className={s.container}>
@@ -15,7 +31,7 @@ export const ChatRooms = () => {
             <div
               key={i}
               className={s.block}
-            //   onClick={() => handleClick(el.name, el.user.username, el.id)}
+              onClick={() => handleClick(el.name, username, el.id)}
             >
               <div className={s.title}>
                 <p className={s.room_name}>{el.name}</p>

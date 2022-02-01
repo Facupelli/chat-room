@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from "react";
-import {io} from "socket.io-client";
 import { useForm } from "react-hook-form";
 import s from "./Chat.module.css";
 import { Nav } from "../Nav/Nav";
 import { useSelector } from "react-redux";
 
-export const Chat = () => {
-  const [socket, setSocket] = useState(null);
-  // const socket = useSelector(state => state.socket)
-
-  // const socket = io();
-  // console.log('SOCKET', socket)
+export const Chat = ({socket}) => {
+  
 
   const [chat, setChat] = useState([]);
   console.log("CHAT", chat);
 
-  // const socketOn = () => {
-  //   if (socket) {
-  //     socket.on("message", (message) => {
-  //       setChat([...chat, message]);
-  //     });
-  //   }
-  // };
+  const socketOn = () => {
+    if (socket) {
+      socket.on("message", (message) => {
+        setChat([...chat, message]);
+      });
+    }
+  };
 
-  // useEffect(() => {
-  //   socketOn();
-  // });
-
-  // useEffect(() => {
-  //   const newSocket = io(`http://${window.location.hostname}:3001`);
-  //   setSocket(newSocket);
-  //   return () => newSocket.close();
-  // }, [setSocket]);
+  useEffect(() => {
+    socketOn();
+  });
+  
 
   // -------------------- FORM ----------------------------------
 

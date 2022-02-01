@@ -1,16 +1,17 @@
 const formatMessage = require("./utils/messages");
 const { io } = require("../app");
 
+
 const botName = "Bot";
 
 io.on("connection", (socket) => {
   console.log("new web socket connection..");
 
-  socket.on("joinRoom", (roomIndex) => {
+  socket.on("joinRoom", (roomInfo) => {
     const user = {
       id: socket.id,
-      username: roomIndex.username,
-      room: roomIndex.name,
+      username: roomInfo.username,
+      room: roomInfo.name,
     };
 
     console.log(user)
