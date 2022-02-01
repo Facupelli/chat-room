@@ -1,20 +1,19 @@
 .container{
+    background-color: #f773e1;
+    height: 25em;
     margin-top: 2rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+
+    display: grid;
+    grid-template-rows: [first] 90% [line2] 10% ;
 }
 
 .chatlog {
-    background-color: #f773e1;
-    border-radius: 0.5rem;
-    /* width: 60%; */
-    height: 25rem;
-    padding: 1rem 2rem 1rem 2rem;
-
     display: flex;
     flex-direction: column;
     overflow-y:auto;
-}
-
-.content{
+    padding: 0.5rem;
 }
 
 .message {
@@ -42,3 +41,32 @@
     justify-content: flex-end;
     color: gray;
 } 
+
+.formContainer{
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.5em;
+    display: flex;
+}
+
+.messageInput{
+    border: 1px solid #78386D;
+    border-radius: 0.5rem;
+    padding: 0.5em;
+    width: 80%;
+}
+
+.button{
+    margin-left: auto;
+    padding: 0.5rem;
+    background-color: #78386D;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+
+}
+
+    input:focus{
+        border: 2px solid #78386D;
+        outline: none;
+    }
+

@@ -1,6 +1,6 @@
 .container{
     display: grid;
-    grid-template-columns: [first] 40% [line2] 50% ;
+    grid-template-columns: [first] 25% [line2] 45% ;
     column-gap: 10px;
     justify-content: center;
 }

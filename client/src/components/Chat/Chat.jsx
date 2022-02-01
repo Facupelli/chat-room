@@ -36,44 +36,15 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
       socket.on("message", (message) => {
         setChat({ messages: [...chat.messages, message] });
       });
-      return () => socket.off()
+      return () => socket.off();
     }
   };
 
   useEffect(() => {
     socketOn();
-  },[chat]);
+  }, [chat]);
 
-  // -------------------- FORM ----------------------------------
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    try {
-      console.log("DATA", data);
-      const messageInfo = {
-        username,
-        text: data.message,
-        room: currentRoom.roomName,
-        userId,
-        roomId: currentRoom.roomId,
-      };
-
-      const response = await axios.post("/chatmessage", messageInfo);
-
-      //emit message to server
-      socket.emit("chatMessage", data.message);
-      // socketOn();
-      reset();
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  
 
   //handleLoadMessages -----------------------------
   const handleLoadMessages = async () => {
@@ -101,6 +72,39 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
 
   // -------------------- SCROLL TO BOTTOM --------------------------------
 
+  // -------------------- FORM ----------------------------------
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const message = watch('message');
+
+  const onSubmit = async (data) => {
+    try {
+      console.log("DATA", data);
+      const messageInfo = {
+        username,
+        text: data.message,
+        room: currentRoom.roomName,
+        userId,
+        roomId: currentRoom.roomId,
+      };
+
+      const response = await axios.post("/chatmessage", messageInfo);
+
+      //emit message to server
+      socket.emit("chatMessage", data.message);
+      reset();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className={s.container}>
       <div className={s.chatlog}>
@@ -119,12 +123,14 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
             </div>
           ))}
       </div>
-      <div>
+      {currentRoom.roomName.length > 0 && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("message")} />
-          <input type="submit" />
+          <div className={s.formContainer}>
+            <input {...register("message")} className={s.messageInput} />
+            <input type="submit" className={s.button} disabled={message ? false : true} />
+          </div>
         </form>
-      </div>
+      )}
     </div>
   );
 };
