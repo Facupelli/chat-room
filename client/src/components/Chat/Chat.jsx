@@ -36,12 +36,13 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
       socket.on("message", (message) => {
         setChat({ messages: [...chat.messages, message] });
       });
+      return () => socket.off()
     }
   };
 
   useEffect(() => {
     socketOn();
-  }, [socket]);
+  },[chat]);
 
   // -------------------- FORM ----------------------------------
 
@@ -67,6 +68,7 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
 
       //emit message to server
       socket.emit("chatMessage", data.message);
+      // socketOn();
       reset();
     } catch (e) {
       console.log(e);

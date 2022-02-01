@@ -27,7 +27,7 @@ export const Home = () => {
   const [chat, setChat] = useState({
     messages: [],
   });
-  console.log("CHAT.MESSAGES", chat.messages);
+  console.log("CHAT.MESSAGES", chat);
 
   const [currentRoom, setCurrentRoom] = useState({
     roomName: "",
