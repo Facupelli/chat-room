@@ -4,8 +4,8 @@ import s from "./Chat.module.css";
 import { Nav } from "../Nav/Nav";
 import { useSelector } from "react-redux";
 
-export const Chat = ({socket}) => {
-  
+export const Chat = ({ socket }) => {
+  const username = useSelector((state) => state.user.username);
 
   const [chat, setChat] = useState([]);
   console.log("CHAT", chat);
@@ -21,7 +21,6 @@ export const Chat = ({socket}) => {
   useEffect(() => {
     socketOn();
   });
-  
 
   // -------------------- FORM ----------------------------------
 
@@ -42,23 +41,23 @@ export const Chat = ({socket}) => {
 
   // -------------------- SCROLL TO BOTTOM --------------------------------
   return (
-      <div className={s.container}>
-        <div className={s.chatlog}>
-          {chat.length > 0 &&
-            chat.map((el, i) => (
-              <div key={i} className={s.message}>
-                <p className={s.username}>{el.username}</p>
-                <p className={s.text}>{el.text}</p>
-                <p className={s.time}>{el.time}</p>
-              </div>
-            ))}
-        </div>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("message")} />
-            <input type="submit" />
-          </form>
-        </div>
+    <div className={s.container}>
+      <div className={s.chatlog}>
+        {chat.length > 0 &&
+          chat.map((el, i) => (
+            <div key={i} className={s.message}>
+              <p className={s.username}>{el.username}</p>
+              <p className={s.text}>{el.text}</p>
+              <p className={s.time}>{el.time}</p>
+            </div>
+          ))}
       </div>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register("message")} />
+          <input type="submit" />
+        </form>
+      </div>
+    </div>
   );
 };

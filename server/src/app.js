@@ -58,25 +58,28 @@ io.on("connection", (socket) => {
     const user = {
       id: socket.id,
       username: roomInfo.username,
-      room: roomInfo.name,
+      room: roomInfo.roomName,
     };
 
-    socket.join(user.room);
+    console.log(user);
 
-    socket.emit("message", formatMessage(botName, `Welcome ${user.username} to Chat-Room`)); // only for the user connected
+    socket.emit(
+      "message",
+      formatMessage(botName, `Welcome ${user.username} to ${user.room}`)
+    ); // only for the user connected
 
     socket.broadcast.emit(
       "message",
       formatMessage(botName, "A user has joined the chat")
     ); // for all user except the client connected
+
+    //listen for chat messages
+    socket.on("chatMessage", (msg) => {
+      io.emit("message", formatMessage(`${user.username}`, msg));
+    });
   });
 
   //io.emit() // for all users
-
-  //listen for chat messages
-  socket.on("chatMessage", (msg) => {
-    io.emit("message", formatMessage("username", msg));
-  });
 
   socket.on("disconnect", () => {
     io.emit("message", formatMessage(botName, "A user has left the chat"));
