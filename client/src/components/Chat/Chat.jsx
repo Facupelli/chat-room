@@ -108,7 +108,7 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   return (
     <div className={s.container}>
       <div className={s.chatlog}>
-        <span onClick={handleLoadMessages}>load more messages</span>
+        <span onClick={handleLoadMessages} className={s.loadMessages}>load more messages</span>
         {chat.messages.length > 0 &&
           chat.messages.map((el, i) => (
             <div

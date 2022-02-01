@@ -52,6 +52,7 @@ export const AllRooms = ({
           setShowRooms={setShowRooms}
           showRooms={showRooms}
           roomIndex={roomIndex}
+          userId={userId}
         />
       )}
     </>

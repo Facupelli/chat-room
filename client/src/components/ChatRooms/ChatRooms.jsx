@@ -31,7 +31,6 @@ export const ChatRooms = ({ socket, setCurrentRoom, currentRoom, setChat, chat }
 
   return (
     <div className={s.container}>
-      <p>My Rooms</p>
       <div>
         {rooms_joined &&
           rooms_joined.map((el, i) => (

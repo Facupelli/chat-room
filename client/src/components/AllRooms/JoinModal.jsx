@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getRoomsJoined } from "../../redux/actions/actions";
 import s from "./JoinModal.module.css";
 
 export const JoinModal = ({
@@ -7,8 +9,11 @@ export const JoinModal = ({
   showChat,
   setShowRooms,
   showRooms,
-  roomIndex
+  roomIndex,
+  userId
 }) => {
+
+  const dispatch = useDispatch()
 
   const handleNoClick = () => {
     setModal(false);
@@ -24,6 +29,8 @@ export const JoinModal = ({
 
     setShowRooms(!showRooms);
     setShowChat(!showChat);
+
+    dispatch(getRoomsJoined(userId))
     // await socket.emit('joinRoom', roomIndex)
   };
 
