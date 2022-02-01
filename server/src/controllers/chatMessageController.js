@@ -27,13 +27,20 @@ const postMessage = async (req, res, next) => {
 
 const getMessagesByRoom = async (req, res, next) => {
   try {
-    const { room, roomId } = req.body;
-    const { page, size } = req.query;
+    const { page, size, roomName, roomId } = req.query;
 
-    const {limit, offset} = getPagination(page, size)
+    console.log(roomId, roomName, req.query)
+
+    const totalRows = await Chat_message.findAndCountAll({
+      where: { roomName: roomName, roomId: roomId },
+    })
+
+    const {limit, offset} = getPagination(page, size, totalRows)
+
+    console.log('LIMIT OFFSET', limit, offset)
 
     const findRoom = await Chat_message.findAndCountAll({
-      where: { roomName: room, roomId: roomId },
+      where: { roomName: roomName, roomId: roomId },
     //   include: [{ model: Chat_message, as: "roomMessages" }],
       limit,
       offset,

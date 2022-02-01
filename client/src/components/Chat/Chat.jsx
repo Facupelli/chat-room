@@ -7,11 +7,26 @@ import axios from "axios";
 
 export const Chat = ({ socket, currentRoom }) => {
   const username = useSelector((state) => state.user.username);
-  const userId = localStorage.getItem('userId');
-
+  const userId = localStorage.getItem("userId");
 
   const [chat, setChat] = useState([]);
   console.log("CHAT", chat);
+
+  //LOAD CHAT MESSAGES ------------------------
+
+  useEffect(() => {
+    if (currentRoom.roomName.length > 0) {
+      axios
+        .get(
+          `/chatmessage?roomId=${currentRoom.roomId}&roomName=${currentRoom.roomName}`
+        )
+        // .then((res) => console.log("GET MESSAGES", res))
+        .then(res => setChat(res.data.rows))
+        // .then((res) => setChat([...chat, res.data.rows.map(el => el)]));
+    }
+  }, [currentRoom]);
+
+  //SOCKET ----------------------------------------
 
   const socketOn = () => {
     if (socket) {
@@ -34,7 +49,7 @@ export const Chat = ({ socket, currentRoom }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     console.log("DATA", data);
     const messageInfo = {
       username,
@@ -42,9 +57,9 @@ export const Chat = ({ socket, currentRoom }) => {
       room: currentRoom.roomName,
       userId,
       roomId: currentRoom.roomId,
-    }
+    };
 
-    await axios.post('/chatmessage', messageInfo)
+    await axios.post("/chatmessage", messageInfo);
 
     //emit message to server
     socket.emit("chatMessage", data.message);
