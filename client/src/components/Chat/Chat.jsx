@@ -9,8 +9,13 @@ export const Chat = ({ socket, currentRoom }) => {
   const username = useSelector((state) => state.user.username);
   const userId = localStorage.getItem("userId");
 
-  const [chat, setChat] = useState([]);
-  console.log("CHAT", chat);
+  const [totalRows, setTotalRows] = useState("");
+  const [loadPetitions, setLoadPetitions] = useState(1);
+
+  const [chat, setChat] = useState({
+    messages: [],
+  });
+  console.log("CHAT.MESSAGES", chat.messages);
 
   //LOAD CHAT MESSAGES ------------------------
 
@@ -21,8 +26,13 @@ export const Chat = ({ socket, currentRoom }) => {
           `/chatmessage?roomId=${currentRoom.roomId}&roomName=${currentRoom.roomName}`
         )
         // .then((res) => console.log("GET MESSAGES", res))
-        .then(res => setChat(res.data.rows))
-        // .then((res) => setChat([...chat, res.data.rows.map(el => el)]));
+        .then((res) => {
+          setChat({
+            messages: chat.messages.concat(res.data.rows),
+          });
+          setTotalRows(res.data.count);
+        });
+      // .then((res) => setChat([...chat, res.data.rows.map(el => el)]));
     }
   }, [currentRoom]);
 
@@ -31,7 +41,7 @@ export const Chat = ({ socket, currentRoom }) => {
   const socketOn = () => {
     if (socket) {
       socket.on("message", (message) => {
-        setChat([...chat, message]);
+        setChat({ messages: [...chat.messages, message] });
       });
     }
   };
@@ -66,12 +76,32 @@ export const Chat = ({ socket, currentRoom }) => {
     reset();
   };
 
+  //handleLoadMessages -----------------------------
+  const handleLoadMessages = async () => {
+    const pageNumber = Math.floor(totalRows / 10);
+
+    if (pageNumber - loadPetitions >= 0) {
+      axios
+        .get(
+          `/chatmessage?roomId=${currentRoom.roomId}&roomName=${
+            currentRoom.roomName
+          }&page=${pageNumber - loadPetitions}`
+        )
+        .then((res) => {
+          setChat({ messages: res.data.rows.concat(chat.messages) });
+          setLoadPetitions(loadPetitions + 1);
+        });
+    }
+  };
+
   // -------------------- SCROLL TO BOTTOM --------------------------------
+
   return (
     <div className={s.container}>
       <div className={s.chatlog}>
-        {chat.length > 0 &&
-          chat.map((el, i) => (
+        <span onClick={handleLoadMessages}>load more messages</span>
+        {chat.messages.length > 0 &&
+          chat.messages.map((el, i) => (
             <div key={i} className={s.message}>
               <p className={s.username}>{el.username}</p>
               <p className={s.text}>{el.text}</p>

@@ -41,7 +41,7 @@ export const Home = () => {
       {showChat && (
         <div className={s.container}>
           <div className={s.rooms}>
-            <ChatRooms socket={socket} setCurrentRoom={setCurrentRoom} />
+            <ChatRooms socket={socket} setCurrentRoom={setCurrentRoom} currentRoom={currentRoom}/>
           </div>
           <div className={s.chat}>
             <Chat socket={socket} currentRoom={currentRoom} />

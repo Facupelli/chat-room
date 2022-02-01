@@ -3,11 +3,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import s from "./ChatRooms.module.css";
 
-export const ChatRooms = ({socket, setCurrentRoom}) => {
+export const ChatRooms = ({ socket, setCurrentRoom, currentRoom }) => {
   const rooms_joined = useSelector((state) => state.rooms_joined);
-  const username = useSelector(state => state.user.username )
-  const userId = localStorage.getItem('userId')
-
+  const username = useSelector((state) => state.user.username);
+  const userId = localStorage.getItem("userId");
 
   const handleClick = (roomName, username, roomId) => {
     const roomInfo = {
@@ -17,14 +16,16 @@ export const ChatRooms = ({socket, setCurrentRoom}) => {
       userId,
     };
 
-    setCurrentRoom({
-      roomName,
-      roomId,
-    })
+    if (currentRoom.roomName !== roomName && currentRoom.roomId !== roomId) {
+      setCurrentRoom({
+        roomName,
+        roomId,
+      });
 
-    console.log(roomInfo)
+      socket.emit("joinRoom", roomInfo);
+    }
 
-    socket.emit('joinRoom', roomInfo)
+    console.log(roomInfo);
   };
 
   return (
