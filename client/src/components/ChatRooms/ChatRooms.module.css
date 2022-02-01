@@ -4,3 +4,22 @@
     margin-top: 2rem;
     border-radius: 0.5rem;
 }
+
+.block{
+    background-color: #FB76E5;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.room_name{
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}

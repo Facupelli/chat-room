@@ -4,12 +4,14 @@ import { Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register/Register";
 import { Login } from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { getRooms, getUser, setCookie, setSocket } from "./redux/actions/actions";
+import { getRooms, getRoomsJoined, getUser, setCookie, setSocket } from "./redux/actions/actions";
 import { Home } from "./components/Home/Home";
 
 function App() {
   const dispatch = useDispatch();
   const cookie = useSelector((state) => state.cookie);
+  const userId = localStorage.getItem("userId");
+
 
   //SET SOCKET-------------------------
 
@@ -21,7 +23,6 @@ function App() {
   // SET COOKIE-----------------------------
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
 
     if (token && userId) {
       dispatch(setCookie(userId));
@@ -40,6 +41,12 @@ function App() {
   //GET ROOMS--------------------------------
   useEffect(() => {
     dispatch(getRooms());
+    // eslint-disable-next-line
+  }, []);
+
+  //GET ROOMS JOINED--------------------------------
+  useEffect(() => {
+    dispatch(getRoomsJoined(userId));
     // eslint-disable-next-line
   }, []);
   

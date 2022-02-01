@@ -5,6 +5,7 @@ const initialState = {
   cookie: "",
   user: [],
   rooms: [],
+  rooms_joined: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         rooms: payload,
       };
+    case type.GET_ROOMS_JOINED:
+      return{
+        ...state,
+        rooms_joined: payload[0].roomsJoined,
+      }
 
     default:
       return state;

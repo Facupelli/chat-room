@@ -1,4 +1,4 @@
-const { Room, rooms_users_joined } = require("../db");
+const { Room, rooms_users_joined, User } = require("../db");
 
 const postJoinRoom = async (req, res, next) => {
   try {
@@ -31,12 +31,13 @@ const postJoinRoom = async (req, res, next) => {
 
 const getRoomsJoinedByUser = async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
 
-    const roomsJoined = await rooms_users_joined.findAll({
+    const roomsJoined = await User.findAll({
       where: {
-        userId: userId,
+        id: userId,
       },
+      include: { model: Room, as: 'roomsJoined' },
     });
     roomsJoined
       ? res.status(200).json(roomsJoined)

@@ -2,7 +2,6 @@ import { type } from "./variables";
 import axios from "axios";
 import io from "socket.io-client";
 
-
 export const setCookie = (cookie) => {
   return {
     type: type.SET_COOKIE,
@@ -38,6 +37,23 @@ export const getRooms = () => async (dispatch) => {
 
     return dispatch({
       type: type.GET_ALL_ROOMS,
+      payload: res.data,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getRoomsJoined = (userId) => async (dispatch) => {
+  try {
+    const data = {
+      userId,
+    };
+    const res = await axios.get(`/roomsjoined?userId=${userId}`);
+
+
+    return dispatch({
+      type: type.GET_ROOMS_JOINED,  
       payload: res.data,
     });
   } catch (e) {
