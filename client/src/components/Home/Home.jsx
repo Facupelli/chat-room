@@ -34,6 +34,8 @@ export const Home = () => {
     roomId: "",
   });
 
+  console.log('CURRENT ROOM', currentRoom)
+
   return (
     <div>
       <Nav

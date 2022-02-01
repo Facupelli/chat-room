@@ -27,7 +27,6 @@ export const ChatRooms = ({ socket, setCurrentRoom, currentRoom, setChat, chat }
       socket.emit("joinRoom", roomInfo);
     }
 
-    console.log(roomInfo);
   };
 
   return (

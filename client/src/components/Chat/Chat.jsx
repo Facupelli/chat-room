@@ -10,7 +10,7 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   const userId = localStorage.getItem("userId");
 
   const [totalRows, setTotalRows] = useState("");
-  const [loadPetitions, setLoadPetitions] = useState(1);
+  const [loadPetitions, setLoadPetitions] = useState(0);
 
   //LOAD CHAT MESSAGES ------------------------
 
@@ -20,14 +20,12 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
         .get(
           `/chatmessage?roomId=${currentRoom.roomId}&roomName=${currentRoom.roomName}`
         )
-        // .then((res) => console.log("GET MESSAGES", res))
         .then((res) => {
-          setChat({
-            messages: chat.messages.concat(res.data.rows),
-          });
+          // setChat({
+          //   messages: chat.messages.concat(res.data.rows),
+          // });
           setTotalRows(res.data.count);
         });
-      // .then((res) => setChat([...chat, res.data.rows.map(el => el)]));
     }
   }, [currentRoom]);
 
@@ -79,6 +77,8 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   const handleLoadMessages = async () => {
     const pageNumber = Math.floor(totalRows / 10);
 
+    console.log(pageNumber, loadPetitions);
+
     if (pageNumber - loadPetitions >= 0) {
       axios
         .get(
@@ -92,6 +92,10 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
         });
     }
   };
+
+  useEffect(() => {
+    setLoadPetitions(0);
+  }, [currentRoom]);
 
   // -------------------- SCROLL TO BOTTOM --------------------------------
 
