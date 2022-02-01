@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         alowNull: true,
       },
-      room: {
+      roomName: {
         type: DataTypes.STRING,
         alowNull: true,
       },

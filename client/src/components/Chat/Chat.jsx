@@ -39,8 +39,9 @@ export const Chat = ({ socket, currentRoom }) => {
     const messageInfo = {
       username,
       text: data.message,
-      room: currentRoom,
+      room: currentRoom.roomName,
       userId,
+      roomId: currentRoom.roomId,
     }
 
     await axios.post('/chatmessage', messageInfo)

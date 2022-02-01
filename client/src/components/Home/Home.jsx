@@ -25,7 +25,10 @@ export const Home = () => {
     return () => newSocket.close();
   }, [setSocket]);
 
-  const [currentRoom, setCurrentRoom] = useState('')
+  const [currentRoom, setCurrentRoom] = useState({
+    roomName:'',
+    roomId: '',
+  })
 
   return (
     <div>

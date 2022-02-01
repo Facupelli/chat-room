@@ -17,7 +17,10 @@ export const ChatRooms = ({socket, setCurrentRoom}) => {
       userId,
     };
 
-    setCurrentRoom(roomName)
+    setCurrentRoom({
+      roomName,
+      roomId,
+    })
 
     console.log(roomInfo)
 

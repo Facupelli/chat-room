@@ -42,15 +42,17 @@ const { User, Room, Chat_message } = sequelize.models;
 User.hasMany(Room, { as: "roomsOwn" });
 Room.belongsTo(User);
 
-User.belongsToMany(Room, {as: "roomsJoined", through: "rooms_users_joined"});
-Room.belongsToMany(User, {as: "roomsJoined", through: "rooms_users_joined"});
+User.belongsToMany(Room, { as: "roomsJoined", through: "rooms_users_joined" });
+Room.belongsToMany(User, { as: "roomsJoined", through: "rooms_users_joined" });
 
-User.hasMany(Chat_message,{as : "userMessages"});
+User.hasMany(Chat_message, { as: "userMessages" });
 Chat_message.belongsTo(User);
+
+Room.hasMany(Chat_message, { as: "roomMessages" });
+Chat_message.belongsTo(Room);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,
   Op: Sequelize.Op, // para importart la conexión { conn } = require('./db.js');
 };
-
