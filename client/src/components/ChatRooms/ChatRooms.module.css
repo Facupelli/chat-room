@@ -3,10 +3,12 @@
     height: 25rem;
     margin-top: 2rem;
     border-radius: 0.5rem;
+    padding: 0.5em;
+
 }
 
 .block{
-    background-color: #FB76E5;
+    background-color: rgb(252, 218, 246);
     cursor: pointer;
     border-radius: 0.5rem;
     padding: 0.5em;

@@ -5,11 +5,10 @@ import s from "./ChatRooms.module.css";
 
 export const ChatRooms = () => {
   const rooms_joined = useSelector((state) => state.rooms_joined);
-  console.log('rooms_joined',rooms_joined)
 
   return (
     <div className={s.container}>
-      <p>Rooms</p>
+      <p>My Rooms</p>
       <div>
         {rooms_joined &&
           rooms_joined.map((el, i) => (
