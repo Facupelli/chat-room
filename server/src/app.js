@@ -70,20 +70,20 @@ io.on("connection", (socket) => {
 
     socket.broadcast.emit(
       "message",
-      formatMessage(botName, "A user has joined the chat")
+      formatMessage(botName, `${user.username} has joined the chat`)
     ); // for all user except the client connected
 
     //listen for chat messages
     socket.on("chatMessage", (msg) => {
       io.emit("message", formatMessage(`${user.username}`, msg));
     });
+
+    socket.on("disconnect", () => {
+      io.emit("message", formatMessage(botName, `${user.username} has left the chat`));
+    });
   });
 
   //io.emit() // for all users
-
-  socket.on("disconnect", () => {
-    io.emit("message", formatMessage(botName, "A user has left the chat"));
-  });
 });
 
 (module.exports = server), io;
