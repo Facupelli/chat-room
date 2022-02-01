@@ -25,6 +25,7 @@ export const Home = () => {
     return () => newSocket.close();
   }, [setSocket]);
 
+  const [currentRoom, setCurrentRoom] = useState('')
 
   return (
     <div>
@@ -37,10 +38,10 @@ export const Home = () => {
       {showChat && (
         <div className={s.container}>
           <div className={s.rooms}>
-            <ChatRooms socket={socket} />
+            <ChatRooms socket={socket} setCurrentRoom={setCurrentRoom} />
           </div>
           <div className={s.chat}>
-            <Chat socket={socket} />
+            <Chat socket={socket} currentRoom={currentRoom} />
           </div>
         </div>
       )}

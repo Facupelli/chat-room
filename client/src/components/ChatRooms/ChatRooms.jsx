@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import s from "./ChatRooms.module.css";
 
-export const ChatRooms = ({socket}) => {
+export const ChatRooms = ({socket, setCurrentRoom}) => {
   const rooms_joined = useSelector((state) => state.rooms_joined);
   const username = useSelector(state => state.user.username )
   const userId = localStorage.getItem('userId')
@@ -16,6 +16,8 @@ export const ChatRooms = ({socket}) => {
       username,
       userId,
     };
+
+    setCurrentRoom(roomName)
 
     console.log(roomInfo)
 

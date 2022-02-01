@@ -5,6 +5,8 @@ const login = require("./login");
 const user = require("./user");
 const room = require("./room");
 const roomJoined = require("./roomsJoined");
+const chatMessage = require("./chatMessage");
+
 
 // const temperament = require('./temperament');
 
@@ -15,6 +17,8 @@ router.use("/login", login);
 router.use("/user", user);
 router.use("/room", room);
 router.use("/roomsjoined", roomJoined);
+router.use("/chatmessage", chatMessage);
+
 
 // router.use('/temperament', temperament);
 

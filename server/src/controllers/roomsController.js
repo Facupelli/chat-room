@@ -8,6 +8,12 @@ const postRoom = async (req, res, next) => {
       userId: req.body.userId,
     };
 
+    const roomNameExist = await Room.findOne({where: {name: room.name}});
+    
+    if(roomNameExist){
+      res.status(400).json({message: "room name already exists"})
+    }
+
     await Room.create(room);
     res.json({ data: "created" });
   } catch (e) {

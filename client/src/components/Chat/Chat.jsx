@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import s from "./Chat.module.css";
 import { Nav } from "../Nav/Nav";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
-export const Chat = ({ socket }) => {
+export const Chat = ({ socket, currentRoom }) => {
   const username = useSelector((state) => state.user.username);
+  const userId = localStorage.getItem('userId');
+
 
   const [chat, setChat] = useState([]);
   console.log("CHAT", chat);
@@ -31,8 +34,16 @@ export const Chat = ({ socket }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("DATA", data);
+    const messageInfo = {
+      username,
+      text: data.message,
+      room: currentRoom,
+      userId,
+    }
+
+    await axios.post('/chatmessage', messageInfo)
 
     //emit message to server
     socket.emit("chatMessage", data.message);
