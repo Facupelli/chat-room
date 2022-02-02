@@ -4,6 +4,7 @@ import s from "./Chat.module.css";
 import { Nav } from "../Nav/Nav";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useRef } from "react";
 
 export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   const username = useSelector((state) => state.user.username);
@@ -11,6 +12,14 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
 
   const [totalRows, setTotalRows] = useState("");
   const [loadPetitions, setLoadPetitions] = useState(0);
+
+  //SCROLL TO BOTTOM OF MESSAGES --------------------------
+
+  const divRef = useRef(null);
+
+  const scrollToBottom = () => {
+    divRef.current.scroll({ behavior: "smooth" });
+  };
 
   //LOAD CHAT MESSAGES ------------------------
 
@@ -36,6 +45,7 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
       socket.on("message", (message) => {
         setChat({ messages: [...chat.messages, message] });
       });
+      // scrollToBottom();
       return () => socket.off();
     }
   };
@@ -43,8 +53,6 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   useEffect(() => {
     socketOn();
   }, [chat]);
-
-  
 
   //handleLoadMessages -----------------------------
   const handleLoadMessages = async () => {
@@ -82,7 +90,7 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
     formState: { errors },
   } = useForm();
 
-  const message = watch('message');
+  const message = watch("message");
 
   const onSubmit = async (data) => {
     try {
@@ -108,7 +116,9 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
   return (
     <div className={s.container}>
       <div className={s.chatlog}>
-        <span onClick={handleLoadMessages} className={s.loadMessages}>load more messages</span>
+        <span onClick={handleLoadMessages} className={s.loadMessages}>
+          load more messages
+        </span>
         {chat.messages.length > 0 &&
           chat.messages.map((el, i) => (
             <div
@@ -122,15 +132,29 @@ export const Chat = ({ socket, currentRoom, chat, setChat }) => {
               </div>
             </div>
           ))}
+        {/* <div ref={divRef}></div> */}
+        {/* <AlwaysScrollToBottom chat={chat}/> */}
       </div>
       {currentRoom.roomName.length > 0 && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={s.formContainer}>
             <input {...register("message")} className={s.messageInput} />
-            <input type="submit" className={s.button} disabled={message ? false : true} />
+            <input
+              type="submit"
+              className={s.button}
+              disabled={message ? false : true}
+            />
           </div>
         </form>
       )}
     </div>
   );
+};
+
+const AlwaysScrollToBottom = ({chat}) => {
+  const elementRef = useRef();
+  useEffect(() => {
+    elementRef.current.scrollIntoView()
+  },[chat]);
+  return <div ref={elementRef} />;
 };

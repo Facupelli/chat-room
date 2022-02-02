@@ -19,7 +19,7 @@
 .loadMessages{
     cursor: pointer;
     text-decoration: underline;
-    color: gray;
+    color: #78386D;
     display: flex;
     justify-content: center;
 }
